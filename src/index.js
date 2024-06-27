@@ -8,7 +8,7 @@ import serveStatic from 'serve-static';
 
 // Print message (optional)
 console.log(`
-Hypertabs
+Gravity Tabs Server
 This program comes with ABSOLUTELY NO WARRANTY.
 This is free software, and you are welcome to redistribute it
 under the terms of the GNU General Public License as published by

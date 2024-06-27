@@ -1,0 +1,234 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
+
+/* Body styles */
+body {
+  font-family: 'Roboto', "Segoe UI", Tahoma, sans-serif;
+  background-color: #222;
+  color: #fff;
+  margin: 0;
+  padding: 0;
+}
+
+/* Centering utility */
+.center {
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -55%);
+}
+
+/* Buttons */
+.btn1,
+.btn {
+  color: antiquewhite;
+  outline: none;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  margin-left: 3px;
+}
+
+/* Button container */
+.btns {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding-top: 40px;
+}
+
+/* Heading styles */
+.head-titl {
+  text-align: center;
+}
+
+/* Container for people */
+.ppl {
+  display: inline-grid;
+  justify-content: center;
+  width: 100%;
+  height: 452px;
+}
+
+/* Additional sections */
+.duce,
+.covid,
+.b3at {
+  color: #fff;
+  display: grid;
+  width: min-content;
+}
+
+/* Sidebar styles */
+.games-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200px;
+  height: 100%;
+  background: #222;
+}
+
+/* CRM block */
+.crm {
+  width: 112px;
+  height: 84px;
+  vertical-align: top;
+  display: grid;
+  text-align: center;
+  justify-items: center;
+  align-items: center;
+}
+
+/* Icon size */
+.icn {
+  width: 48px;
+  height: 48px;
+}
+
+/* Bookmarks section */
+.bookmarks {
+  border-bottom: 1px solid black !important;
+  white-space: nowrap;
+}
+
+/* Adjustments for specific elements */
+#ad {
+  margin: 14px auto;
+  width: 32%;
+  border: 1px solid green;
+  padding: 10px;
+}
+
+#ht {
+  max-width: 15%;
+  height: auto;
+}
+
+fieldset {
+  border: 1px solid #000;
+}
+
+/* Input styles */
+#input,
+#inputb {
+  border: none;
+  border-radius: 22px; /* Adjusted for better appearance */
+  font-size: 16px;
+  outline: none;
+  position: relative;
+  background-color: #333; /* Darker background */
+  color: #fff; /* White text color */
+  padding: 12px; /* Increased padding for better touchability */
+}
+
+#inputb {
+  padding-inline-end: 40px;
+  padding-inline-start: 52px;
+  width: 80%;
+  height: 44px;
+}
+
+#inputimg {
+  position: absolute;
+  left: 0;
+  top: -1px;
+  padding-left: 14px;
+  outline: none;
+}
+
+/* Headline text */
+#txt {
+  font-size: 25px;
+  color: #ffffff;
+  font-weight: normal;
+  margin: 0;
+  padding-top: 50px;
+  padding-bottom: 40px;
+}
+
+#headtxt {
+  font-size: 80px;
+  color: bisque;
+}
+
+/* Responsive media queries */
+@media only screen and (max-width: 600px) {
+  #txt {
+    font-size: 14px;
+  }
+  .center {
+    width: 410px;
+  }
+  #inputb {
+    width: 69%;
+  }
+  .crm {
+    width: 93px;
+  }
+  #headtxt {
+    font-size: 70px;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  #txt {
+    font-size: 12px;
+    width: 97%;
+    word-wrap: normal;
+  }
+  .center {
+    width: 350px;
+  }
+  #inputb {
+    width: 57%;
+  }
+  .crm {
+    width: 85px;
+  }
+  #headtxt {
+    font-size: 60px;
+  }
+}
+
+@media only screen and (max-width: 330px) {
+  .center {
+    width: 300px;
+  }
+  #weather {
+    visibility: hidden;
+  }
+}
+
+/* Bookmark link */
+#bookmarka {
+  display: inline-block;
+  height: 29.2px;
+  padding-left: 29.2px;
+  font-size: 14px;
+  text-decoration: none;
+  font-family: 'Open Sans', sans-serif;
+  background-size: 20px 20px;
+  background-position: 4.1px 0;
+  background-repeat: no-repeat;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 169px;
+  white-space: nowrap;
+}
+
+/* Info block */
+.info {
+  position: absolute;
+  top: 2.5em;
+  right: 2em;
+  width: auto;
+  text-align: center;
+  color: bisque;
+}
+
+/* Alerts link */
+#alerts {
+  text-decoration: underline;
+}
