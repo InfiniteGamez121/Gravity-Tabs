@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en" class="dark-theme">
+
+<head>
+  <!--
+    Gravity Tabs
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+  -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Gravity Tabs">
+  <!-- Open Graph tags -->
+  <meta property="og:title" content="Gravity Tabs">
+  <meta property="og:image" content="/icon.png">
+  <!-- End Open Graph Tags -->
+  <meta name="googlebot" content="index, follow, snippet">
+  <meta name="theme-color" content="#B48EAD">
+  <link href="css/main.css" rel="stylesheet">
+  <link href="css/chrome-tabs.css" rel="stylesheet">
+  <link href="css/chrome-tabs-dark-theme.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="manifest" href="manifest.json">
+  <script src="/uv/uv.bundle.js"></script>
+  <script src="/uv/uv.config.js"></script>
+  <script src="/bare-client.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/uv/sw.js', {
+        scope: __uv$config.prefix,
+        updateViaCache: 'none',
+      });
+    };
+
+    // Custom keydown event listener
+    document.addEventListener('keydown', event => {
+      if (event.ctrlKey && event.key >= '1' && event.key <= '9') {
+        const tabIndex = parseInt(event.key) - 1;
+        const tabs = document.querySelectorAll('.chrome-tab');
+        if (tabs[tabIndex]) {
+          tabs[tabIndex].click();
+          chromeTabs.setCurrentTab(tabs[tabIndex]);
+          setInfo(tabs[tabIndex].ifd + 1);
+        }
+      }
+    });
+
+    // Custom mousedown event listener
+    document.addEventListener('mousedown', event => {
+      const optionsdrop = document.getElementById('optionsdrop');
+      const ctx = document.getElementById('ctx');
+      const extension_menu = document.querySelector('.extension_menu');
+
+      if (event.target.parentElement.id !== "optionsdrop") {
+        hideId("optionsdrop");
+      }
+      if (event.target.parentElement.id !== "ctx") {
+        hideId("ctx");
+      }
+      if (!event.target.classList.contains("extenico") && extension_menu) {
+        if (!event.target.parentElement.classList.contains("extension_menu") &&
+          !event.target.parentElement.parentElement.classList.contains("extension_menu") &&
+          !event.target.classList.contains("extension_menu")) {
+          extension_menu.style.display = "none";
+        }
+      }
+    });
+  </script>
+  <style>
+    /* Custom CSS styles */
+    .chrome-tabs .chrome-tab {
+      width: 258px;
+    }
+
+    .chrome-tabs .chrome-tab:nth-child(1) {
+      transform: translate3d(0px, 0, 0);
+    }
+
+    .chrome-tabs .chrome-tab:nth-child(2) {
+      transform: translate3d(239px, 0, 0);
+    }
+  </style>
+</head>
+
+<body id="alpha">
+  <div class="surface">
+    <div class="mock-browser">
+      <div id="ctx" class="dropdown-content" style="top:0;left:0;right:auto;z-index:99">
+        <a class="pointer" id="pin" onclick="toggleId('ctx');chromeTabs.pinTab(ctxTab)">Pin tab</a>
+        <a class="pointer" style="margin-left: 0;" onclick="toggleId('ctx');newTab('ht://newtab')">New tab</a>
+        <a class="pointer" onclick="toggleId('ctx');newTab(document.getElementById(parseInt(ctxTab) + 1).contentWindow.location.href,false);">Duplicate</a>
+        <a class="pointer" onclick="toggleId('ctx');AddBookmark(parseInt(ctxTab) + 1);">Bookmark</a>
+        <a class="pointer" onclick="toggleId('ctx');chromeTabs.removeTab(document.querySelectorAll('[ifd=\'' + ctxTab + '\']')[0]);document.getElementById(parseInt(ctxTab) + 1).remove()">Close</a>
+        <a class="pointer" onclick="toggleId('ctx');document.getElementById(parseInt(ctxTab)+1).contentWindow.location.reload()">Reload</a>
+      </div>
+      <div class="chrome-tabs chrome-tabs-dark-theme" id="tabsmain" style="--tab-content-margin: 9px">
+        <div class="chrome-tabs-content" id="0">
+          <!-- Chrome tabs content -->
+        </div>
+        <div class="chrome-tabs-bottom-bar"></div>
+      </div>
+      <button style="margin-left:0;" class="material-icons chrome-tab" data-add-tab id="createTab" onclick="newTab('ht://newtab')">add</button>
+      <div class="mock-browser-content">
+        <!-- Mock browser controls -->
+        <button id="urlbutton" onclick="document.getElementById(getActiveFrameId()).src = getBack(getActiveFrameId())">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#757575" preserveAspectRatio="xMidYMid meet">
+            <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"></path>
+          </svg>
+        </button>
+        <button id="urlbutton" onclick="document.getElementById(getActiveFrameId()).src = getForward(getActiveFrameId())">
+          <svg xmlns="http://www.w3.org/2000/svg" style="transform: rotate(180deg)" width="24" height="24" viewBox="0 0 24 24" fill="#757575" preserveAspectRatio="xMidYMid meet">
+            <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"></path>
+          </svg>
+        </button>
+        <button id="urlbutton" onclick="document.getElementById(getActiveFrameId()).contentWindow.location.reload();">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#5F6368">
+            <path d="M17.65 6.35A7.958 7.958 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z" />
+          </svg>
+        </button>
+        <input id="urlbar" list="searchsuggestions">
+        <datalist id="searchsuggestions"></datalist>
+        <div id="extensionlist"></div>
+        <button id="urlbutton" onclick="document.getElementById(getActiveFrameId()).requestFullscreen();">
+          <svg version="1.1" width="24" height="24" viewBox="0.0 0.0 24.0 24.0" fill="none" stroke="none" stroke-linecap="square" stroke-miterlimit="10" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+            <clipPath id="p.0">
+              <path d="m0 0l24.0 0l0 24.0l-24.0 0l0 -24.0z" clip-rule="nonzero" />
+            </clipPath>
+            <g clip-path="url(#p.0)">
+              <path fill="#000000" fill-opacity="0.0" d="m0 0l24.0 0l0 24.0l-24.0 0z" fill-rule="evenodd" />
+              <path fill="#5f6368" d="m6.5537887 4.0406823l0 4.8689804l-2.0394235 0l0 -7.908186l7.907879 0l0 2.0383418l-4.828288 4.828287l1.4434757 1.4429502l4.828288 -4.828288l2.037891 0l0 7.907872l-7.907872 0l0 -2.0379028l4.8689804 -4.8689747l-1.4429502 -1.4429502l-4.8689804 4.8689804l-4.8689804 0l0 -4.8689804l2.0379028 0l0 7.907872l7.907872 0l0 -2.0379028l-4.8282886 -4.828288l-1.4424505 1.4429502l4.8282886 4.828288l-2.0379028 0l0 -7.907872l-7.908186 0z" />
+            </g>
+          </svg>
+        </button>
+        <button id="urlbutton" onclick="chromeTabs.removeTab(document.querySelectorAll('[ifd=\'' + getActiveTab() + '\']')[0]);document.getElementById(getActiveTab() + 1).remove();">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="#5F6368" width="24" height="24" viewBox="0 0 24 24">
+            <path d="M19 6h-3.18l-0.79-0.79c-0.34-0.34-0.88-0.34-1.21 0l-0.79 0.79H8v2h11V6zM6 19c0 0.55 0.45 1 1 1h10c0.55 0 1-0.45 1-1V8H6v11zM10 10h2v9h-2zM14 10h2v9h-2z" />
+          </svg>
+        </button>
+        <div id="uadrop" class="dropdown-content"></div>
+        <div id="optionsdrop" class="dropdown-content" style="top:0;left:0;right:auto;z-index:99">
+          <a class="pointer" onclick="toggleId('optionsdrop');newTab('ht://newtab')">New tab</a>
+          <a class="pointer" onclick="toggleId('optionsdrop');newTab(document.getElementById(parseInt(ctxTab) + 1).contentWindow.location.href,false);">Duplicate</a>
+          <a class="pointer" onclick="toggleId('optionsdrop');AddBookmark(parseInt(ctxTab) + 1);">Bookmark</a>
+          <a class="pointer" onclick="toggleId('optionsdrop');chromeTabs.removeTab(document.querySelectorAll('[ifd=\'' + ctxTab + '\']')[0]);document.getElementById(parseInt(ctxTab) + 1).remove()">Close</a>
+          <a class="pointer" onclick="toggleId('optionsdrop');document.getElementById(parseInt(ctxTab)+1).contentWindow.location.reload()">Reload</a>
+        </div>
+        <button id="urlbutton" onclick="searchForStuff(getActiveFrameId())">
+          <svg version="1.1" width="24" height="24" viewBox="0.0 0.0 24.0 24.0" fill="none" stroke="none" stroke-linecap="square" stroke-miterlimit="10" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+            <clipPath id="p.0">
+              <path d="m0 0l24.0 0l0 24.0l-24.0 0l0 -24.0z" clip-rule="nonzero" />
+            </clipPath>
+            <g clip-path="url(#p.0)">
+              <path fill="#5f6368" d="m18.5 17.07l3.04 3.04l-1.41 1.41l-3.04-3.04z" />
+              <path fill="#5f6368" d="m11.99 17c-2.761 0-5-2.239-5-5s2.239-5 5-5s5 2.239 5 5s-2.239 5-5 5zm0-1.5c1.933 0 3.5-1.567 3.5-3.5s-1.567-3.5-3.5-3.5s-3.5 1.567-3.5 3.5s1.567 3.5 3.5 3.5z" />
+              <path fill="#5f6368" d="m16.5 14.5l5.5 5.5l-1.41 1.41l-5.5-5.5z" />
+              <path fill="#5f6368" d="m3.89 8.43l-2.47 2.47l-0.04-1.02l2.53-2.53l0.96 0.96z" />
+              <path fill="#5f6368" d="m2.97 8.97l-0.95 0.96l1.02 0.04l-0.04-1.02z" />
+              <path fill="#5f6368" d="m6.58 7.36l2.47-2.47l0.04 1.02l-2.53 2.53l-0.96-0.96z" />
+              <path fill="#5f6368" d="m7.5 6.82l0.95-0.96l-1.02-0.04l0.04 1.02z" />
+              <path fill="#5f6368" d="m7.5 15c-3.54 0-6.44-2.77-6.48-6.23l-0.01-0.05l-0.48-4.38l2.18 2.18l0.71-0.71l-1.82-1.82l4.39 0.49l0.05 0.01c3.44 0.04 6.22 2.92 6.22 6.44c0 3.54-2.87 6.43-6.41 6.48l-0.05 0.01z" />
+            </g>
+          </svg>
+        </button>
+        <div id="customtheme" class="dropdown-content" style="top: 0; left: 0; right: auto; z-index: 99;">
+          <a class="pointer" onclick="switchTheme('light')">Light</a>
+          <a class="pointer" onclick="switchTheme('dark')">Dark</a>
+        </div>
+        <div id="extensiondrop" class="dropdown-content" style="top: 0; left: 0; right: auto; z-index: 99;"></div>
+      </div>
+    </div>
+  </div>
+  <div id="upvotes" style="display:none;">
+    <div id="upvotes" style="left:50px;">
+      <a class="thumb" id="type" style="margin-top:12px;width:20px;" onclick="thumb(window.typeid,undefined);">
+        <svg version="1.1" id="layer1" style="margin-left:0px;margin-top:4px;fill:#008c3a;" width="20px" height="20px" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" xmlns:serif="http://www.serif.com/" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <g id="svg_6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="none" stroke-width="2" fill-rule="evenodd" stroke="#000000">
+            <rect id="svg_1" height="4" width="34" y="45.29208" x="15" fill="#000000" />
+            <path id="svg_2" d="m49,55l-17,-16l-17,16l0,0a1,1 0 0 0 1.41,1.41l15,-14a1,1 0 0 1 1.41,0l15,14a1,1 0 0 0 1.41,-1.41z" fill="#000000" />
+            <path id="svg_3" d="m49,14l-17,16l-17,-16l0,0a1,1 0 0 1 1.41,-1.41l15,14a1,1 0 0 0 1.41,0l15,-14a1,1 0 0 1 1.41,1.41z" fill="#000000" />
+          </g>
+        </svg>
+      </a>
+    </div>
+  </div>
+  <script>
+    let activeTheme = 'dark';
+
+    function switchTheme(theme) {
+      const html = document.documentElement;
+      if (theme === 'dark') {
+        html.classList.add('dark-theme');
+        activeTheme = 'dark';
+      } else {
+        html.classList.remove('dark-theme');
+        activeTheme = 'light';
+      }
+    }
+
+    function toggleId(id) {
+      const element = document.getElementById(id);
+      if (element.style.display === "none") {
+        element.style.display = "block";
+      } else {
+        element.style.display = "none";
+      }
+    }
+
+    function hideId(id) {
+      const element = document.getElementById(id);
+      element.style.display = "none";
+    }
+
+    function showId(id) {
+      const element = document.getElementById(id);
+      element.style.display = "block";
+    }
+
+    function newTab(url, background = false) {
+      const tab = document.createElement('div');
+      tab.className = 'chrome-tab';
+      tab.innerHTML = '<div class="chrome-tab-background"></div><div class="chrome-tab-favicon"></div><div class="chrome-tab-title"></div><div class="chrome-tab-close"></div>';
+
+      document.querySelector('.chrome-tabs-content').appendChild(tab);
+
+      if (!background) {
+        const frame = document.createElement('iframe');
+        frame.id = document.querySelectorAll('.chrome-tab').length - 1;
+        frame.src = url;
+        frame.className = 'content-window';
+
+        document.querySelector('.mock-browser-content').appendChild(frame);
+      }
+    }
+
+    function getActiveFrameId() {
+      return document.querySelector('.content-window').id;
+    }
+
+    function getActiveTab() {
+      return document.querySelector('.chrome-tab.active').getAttribute('ifd');
+    }
+
+    function chromeTabs() {
+      let currentTab = null;
+
+      function setCurrentTab(tab) {
+        currentTab = tab;
+        tab.classList.add('chrome-tab-current');
+      }
+
+      function removeTab(tab) {
+        tab.remove();
+      }
+
+      return {
+        setCurrentTab,
+        removeTab,
+      };
+    }
+
+    document.querySelectorAll('.chrome-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.chrome-tab').forEach(t => t.classList.remove('chrome-tab-current'));
+        chromeTabs.setCurrentTab(tab);
+      });
+    });
+  </script>
+</body>
+
+</html>

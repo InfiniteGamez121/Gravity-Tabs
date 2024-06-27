@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gravity Tabs Extensions Manager</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 20px;
+    }
+    .extension-item {
+      margin-bottom: 10px;
+      padding: 10px;
+      background-color: #f0f0f0;
+      border-radius: 5px;
+    }
+    .extension-name {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    .toggle-button {
+      padding: 5px 10px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .toggle-button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <h2>Gravity Tabs Extensions Manager</h2>
+    <p>You need to reload to apply changes.</p>
+    <div id="extensionList"></div>
+  </div>
+
+  <script>
+    // Replace this with your logic to retrieve and iterate over extensions
+    const activeExtensions = ['Extension 1', 'Extension 2', 'Extension 3'];
+
+    activeExtensions.forEach(ext => {
+      const extensionItem = document.createElement('div');
+      extensionItem.classList.add('extension-item');
+
+      const extensionName = document.createElement('div');
+      extensionName.classList.add('extension-name');
+      extensionName.textContent = ext;
+      extensionItem.appendChild(extensionName);
+
+      const toggleButton = document.createElement('button');
+      toggleButton.classList.add('toggle-button');
+      toggleButton.textContent = 'Toggle';
+      toggleButton.onclick = function() {
+        toggleExtension(ext); // Replace with your toggle logic
+      };
+      extensionItem.appendChild(toggleButton);
+
+      document.getElementById('extensionList').appendChild(extensionItem);
+    });
+
+    // Function to toggle extension (replace with your implementation)
+    function toggleExtension(extensionName) {
+      console.log(`Toggling ${extensionName}`);
+      // Add your logic here to toggle the extension
+    }
+  </script>
+</body>
+</html>
